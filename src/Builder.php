@@ -102,11 +102,6 @@ class Builder extends \Laravel\Scout\Builder
 
         }
 
-        //append aggs
-        if(!empty($rawResults['aggregations'])) {
-            $paginator->appends('aggs',$rawResults['aggregations']);
-        }
-
         return $paginator;
     }
 
@@ -153,12 +148,19 @@ class Builder extends \Laravel\Scout\Builder
      * retrieve aggregation result
      *
      * @param null $key
+     * @param false $raw
      * @return mixed
      */
-    public function aggregation($key = null)
+    public function aggregation($key = null,$raw = false)
     {
-        if(!empty($key) && isset($this->aggregations[$key]) && isset($this->aggregations[$key]['buckets'])) {
-            return Collection::make($this->aggregations[$key]['buckets']);
+        if($raw){
+            if(!empty($key) && isset($this->aggregations[$key])) {
+                return $this->aggregations[$key];
+            }
+        }else{
+            if(!empty($key) && isset($this->aggregations[$key]) && isset($this->aggregations[$key]['buckets'])) {
+                return Collection::make($this->aggregations[$key]['buckets']);
+            }
         }
 
         return null;
