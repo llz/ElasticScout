@@ -102,6 +102,11 @@ class Builder extends \Laravel\Scout\Builder
 
         }
 
+        //append aggs
+        if(!empty($rawResults['aggregations'])) {
+            $paginator->appends('aggs',$rawResults['aggregations']);
+        }
+
         return $paginator;
     }
 
