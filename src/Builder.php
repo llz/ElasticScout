@@ -71,7 +71,12 @@ class Builder extends \Laravel\Scout\Builder
 
         ));
 
-        $paginator = (new LengthAwarePaginator($results, $engine->getTotalCount($rawResults), $perPage, $page, [
+        //限制显示前100页
+        $totalCount = $engine->getTotalCount($rawResults);
+        $limitCount = $perPage*100;
+        $showCount = $totalCount > $limitCount ? $limitCount : $totalCount;
+
+        $paginator = (new LengthAwarePaginator($results, $showCount, $perPage, $page, [
             'path' => Paginator::resolveCurrentPath(),
             'pageName' => $pageName,
         ]));
