@@ -212,7 +212,7 @@ class ElasticEngine extends \Laravel\Scout\Engines\Engine
             'from' => (($page * $perPage) - $perPage),
         ]);
 
-        $result['nbPages'] = (int) ceil($result['hits']['total']['value] / $perPage);
+        $result['nbPages'] = (int) ceil($result['hits']['total']['value'] / $perPage);
 
         return $result;
     }
