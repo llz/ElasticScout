@@ -405,7 +405,7 @@ class ElasticEngine extends \Laravel\Scout\Engines\Engine
      */
     public function flush($model)
     {
-        $this->elasticsearch->indices()->delete($model->searchableAs());
+        $this->elasticsearch->indices()->delete(['index'=>$model->searchableAs()]);
 
         $this->createIndex($model);
     }
