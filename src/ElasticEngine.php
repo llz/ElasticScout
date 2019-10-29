@@ -370,7 +370,7 @@ class ElasticEngine extends \Laravel\Scout\Engines\Engine
      */
     public function getTotalCount($results)
     {
-        return $results['hits']['total'];
+        return $results['hits']['total']['value'];
     }
 
     /**
